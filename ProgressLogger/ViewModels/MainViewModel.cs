@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using ProgressLogger.Services;
 using System.Collections.Specialized;
 using System;
+using ProgressLogger.Models;
 
 namespace ProgressLogger.ViewModels
 {
@@ -45,11 +46,11 @@ namespace ProgressLogger.ViewModels
 			}
 		}
 
-		public ObservableCollection<Grouping<string, ISeriesInfo>> Series { get; }
+		public ObservableCollection<Grouping<string, SeriesInfo>> Series { get; }
 
 		public ICommand SearchCommand { get; }
 
-		public RelayCommand<ISeriesInfo> ShowDetailsCommand { get; }
+		public RelayCommand<SeriesInfo> ShowDetailsCommand { get; }
 
 		[ImportingConstructor]
 		public MainViewModel(ISeriesService seriesService, INavigationService navigationService)
@@ -59,11 +60,11 @@ namespace ProgressLogger.ViewModels
 			this.seriesService = seriesService;
 			this.navigationService = navigationService;
 
-			this.Series = new ObservableCollection<Grouping<string, ISeriesInfo>>();
-			this.Series.Add(new Grouping<string, ISeriesInfo>("Tracking"));
+			this.Series = new ObservableCollection<Grouping<string, SeriesInfo>>();
+			this.Series.Add(new Grouping<string, SeriesInfo>("Tracking"));
 
 			this.SearchCommand = new RelayCommand(this.Search);
-			this.ShowDetailsCommand = new RelayCommand<ISeriesInfo>(this.NavigateToSeriesDetails, info => info != null);
+			this.ShowDetailsCommand = new RelayCommand<SeriesInfo>(this.NavigateToSeriesDetails, info => info != null);
 
 			this.seriesService.CurrentSeries.CollectionChanged += this.OnCurrentSeriesChanged;
 			this.Search();
@@ -120,15 +121,15 @@ namespace ProgressLogger.ViewModels
 			}
 		}
 
-		private async void NavigateToSeriesDetails(ISeriesInfo info)
+		private async void NavigateToSeriesDetails(SeriesInfo info)
 		{
-			await this.navigationService.NavigateTo<DetailsViewModel>();
+			await this.navigationService.NavigateTo<DetailsViewModel>(vm => vm.Info = info);
 		}
 
-		private void AddRemoteGroup(IEnumerable<ISeriesInfo> infoes)
+		private void AddRemoteGroup(IEnumerable<SeriesInfo> infoes)
 		{
 			this.RemoveRemoteGroup();
-			var remote = new Grouping<string, ISeriesInfo>("On the web", infoes);
+			var remote = new Grouping<string, SeriesInfo>("On the web", infoes);
 			this.Series.Add(remote);
 		}
 	}

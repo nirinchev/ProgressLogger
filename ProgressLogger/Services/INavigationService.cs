@@ -9,6 +9,6 @@ namespace ProgressLogger.Services
 	{
 		void Initialize(NavigationPage navPage);
 
-		Task NavigateTo<T>(Action<T> onNavigated = null) where T : ViewModelBase;
+		Task NavigateTo<T>(Action<T> setupVM = null) where T : ViewModelBase;
 	}
 }

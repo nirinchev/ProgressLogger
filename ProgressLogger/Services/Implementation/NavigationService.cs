@@ -39,7 +39,7 @@ namespace ProgressLogger.Services.Implementation
 			this.navPage = navPage;
 		}
 
-		public async Task NavigateTo<T>(Action<T> onNavigated) where T : ViewModelBase
+		public Task NavigateTo<T>(Action<T> setupVM) where T : ViewModelBase
 		{
 			var key = typeof(T).Name.Replace("ViewModel", "Page");
 			Type type;
@@ -54,15 +54,16 @@ namespace ProgressLogger.Services.Implementation
 				throw new ArgumentException("Key doesn't represent valid page.");
 			}
 
-			await this.navPage.PushAsync(page, true);
-			if (onNavigated != null)
+			if (setupVM != null)
 			{
 				var modeledPage = page as IModeledPage<T>;
 				if (modeledPage != null)
 				{
-					onNavigated(modeledPage.ViewModel);
+					setupVM(modeledPage.ViewModel);
 				}
 			}
+
+			return this.navPage.PushAsync(page, true);
 		}
 	}
 }

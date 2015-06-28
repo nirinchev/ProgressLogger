@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using ProgressLogger.Services;
 using ProgressLogger.Views;
+using System;
 
 namespace ProgressLogger.Core
 {
@@ -12,11 +13,15 @@ namespace ProgressLogger.Core
 	{
 		private readonly IContainer container;
 
-		public App()
+		public App(Action<IContainer> setupContainer)
 		{
 			this.container = new Container().WithMefAttributedModel();
 			this.container.RegisterExports(GetAssemblies());
 			container.RegisterDelegate<IContainer>(r => container, Reuse.Singleton);
+			if (setupContainer != null)
+			{
+				setupContainer(this.container);
+			}
 
 			var mainPage = container.Resolve<MainPage>();
 

@@ -5,6 +5,7 @@ using System.ComponentModel.Composition;
 using DryIoc.MefAttributedModel;
 using ProgressLogger.RemoteClients.TMDb;
 using System.Collections.ObjectModel;
+using ProgressLogger.Models;
 
 namespace ProgressLogger.Services.Implementation
 {
@@ -15,7 +16,7 @@ namespace ProgressLogger.Services.Implementation
 		private readonly TMDbClient client;
 		private readonly ICacheService cacheService;
 
-		public ObservableCollection<ISeriesInfo> CurrentSeries { get; } = new ObservableCollection<ISeriesInfo>();
+		public ObservableCollection<SeriesInfo> CurrentSeries { get; } = new ObservableCollection<SeriesInfo>();
 
 		[ImportingConstructor]
 		public SeriesService(TMDbClient client, ICacheService cacheService)
@@ -26,11 +27,11 @@ namespace ProgressLogger.Services.Implementation
 
 		private async Task Initialize()
 		{
-			var cachedInfoes = await this.cacheService.GetValueOrDefault<IEnumerable<ISeriesInfo>>(CachedSeriesKey);
+			var cachedInfoes = await this.cacheService.GetValueOrDefault<IEnumerable<SeriesInfo>>(CachedSeriesKey);
 			this.CurrentSeries.AddRange(cachedInfoes);
 		}
 
-		public Task<IEnumerable<ISeriesInfo>> Find(string query)
+		public Task<IEnumerable<SeriesInfo>> Find(string query)
 		{
 			return this.client.Search(query);
 		}

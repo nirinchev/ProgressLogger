@@ -1,5 +1,39 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="ProgressLogger.Views.DetailsPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+			 x:Class="ProgressLogger.Views.DetailsPage"
+			 Title="{Binding Info.Name}">
 	<ContentPage.Content>
+		<ScrollView>
+			<StackLayout>
+				<Image Source="{Binding Info.BackdropUrl}" />
+				<Label Text="{Binding Info.Name}" FontAttributes="Bold" FontSize="20" XAlign="Center"/>
+				<ContentView Padding="8,0,8,8">
+					<Label Text="{Binding Info.Description}" FontSize="15" />
+				</ContentView>
+				<ContentView HeightRequest="0.5" Padding="20,0,0,0">
+					<ContentView BackgroundColor="Silver"/>
+				</ContentView>
+				<Grid Padding="8">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<Label Text="Series Details" FontSize="16" Grid.ColumnSpan="2"/>
+
+					<Label Text="Genres:" FontSize="14" Grid.Row="1" XAlign="End" TextColor="Silver" />
+					<Label Text="{Binding Info.Genres}" FontSize="14" Grid.Row="1" Grid.Column="1" LineBreakMode="TailTruncation" />
+
+					<Label Text="Status:" FontSize="14" Grid.Row="2" XAlign="End" TextColor="Silver" />
+					<Label Text="{Binding Info.Status}" FontSize="14" Grid.Row="2" Grid.Column="1" />
+				</Grid>
+			</StackLayout>
+		</ScrollView>
 	</ContentPage.Content>
 </ContentPage>

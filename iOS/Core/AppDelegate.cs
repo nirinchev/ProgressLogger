@@ -2,6 +2,8 @@
 using UIKit;
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms;
+using DryIoc;
+using XLabs.Platform.Device;
 
 namespace ProgressLogger.Core.iOS
 {
@@ -11,8 +13,11 @@ namespace ProgressLogger.Core.iOS
 		public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
 		{
 			Forms.Init();
-
-			this.LoadApplication(new App());
+			var app = new App(c =>
+				{
+					c.RegisterDelegate<IDevice>(_ => AppleDevice.CurrentDevice, Reuse.Singleton);
+				});
+			this.LoadApplication(app);
 
 			return base.FinishedLaunching(uiApplication, launchOptions);
 		}

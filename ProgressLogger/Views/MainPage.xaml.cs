@@ -16,6 +16,7 @@ namespace ProgressLogger.Views
 			
 			this.InitializeComponent();
 			this.BindingContext = viewModel;
+			NavigationPage.SetBackButtonTitle(this, string.Empty);
 		}
 
 		private void OnItemSelected (object sender, SelectedItemChangedEventArgs e)
