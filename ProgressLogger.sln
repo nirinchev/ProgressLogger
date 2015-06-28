@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ProgressLogger", "ProgressLogger\ProgressLogger.shproj", "{AF42B967-AC80-4332-804B-AF6CDC0115C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressLogger.iOS", "iOS\ProgressLogger.iOS.csproj", "{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Debug|iPhone.Build.0 = Debug|iPhone
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Release|Any CPU.Build.0 = Release|iPhone
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Release|iPhone.ActiveCfg = Release|iPhone
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Release|iPhone.Build.0 = Release|iPhone
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{FE1C3A58-C4D0-41D1-B7ED-C683748259CA}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+EndGlobal
