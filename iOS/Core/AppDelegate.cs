@@ -3,7 +3,7 @@ using UIKit;
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms;
 
-namespace ProgressLogger.iOS
+namespace ProgressLogger.Core.iOS
 {
 	[Register("AppDelegate")]
 	public class AppDelegate : FormsApplicationDelegate

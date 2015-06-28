@@ -12,18 +12,53 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Grouping.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Implementation\NavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ISeriesService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Implementation\SeriesService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ObservableCollectionExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\TMDbClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\Models\Configuration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\Models\ImagesConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\HttpContentHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\HttpRequestHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\LazyExecutor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DetailedRequestException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ApplicationConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\Models\TMDbCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\Models\TMDbSeriesInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ISeriesInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\TaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ICacheService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Implementation\CacheService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\DetailsPage.xaml.cs">
+      <DependentUpon>DetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DetailsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\BaseClasses\IModeledPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\Implementation\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
+    <Folder Include="$(MSBuildThisFileDirectory)RemoteClients\" />
+    <Folder Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\" />
+    <Folder Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\Models\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Core\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\BaseClasses\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\DetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

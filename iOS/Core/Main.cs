@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace ProgressLogger.iOS
+namespace ProgressLogger.Core.iOS
 {
 	public class Application
 	{

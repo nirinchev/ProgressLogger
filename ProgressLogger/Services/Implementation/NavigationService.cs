@@ -7,8 +7,11 @@ using DryIoc.MefAttributedModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ProgressLogger.Core;
+using GalaSoft.MvvmLight;
+using ProgressLogger.Views.BaseClasses;
 
-namespace ProgressLogger
+namespace ProgressLogger.Services.Implementation
 {
 	[Export(typeof(INavigationService)), SingletonReuseAttribute]
 	public class NavigationService : INavigationService
@@ -36,8 +39,9 @@ namespace ProgressLogger
 			this.navPage = navPage;
 		}
 
-		public Task NavigateTo(string key, bool modal)
+		public async Task NavigateTo<T>(Action<T> onNavigated) where T : ViewModelBase
 		{
+			var key = typeof(T).Name.Replace("ViewModel", "Page");
 			Type type;
 			if (!keys.TryGetValue(key, out type))
 			{
@@ -50,7 +54,15 @@ namespace ProgressLogger
 				throw new ArgumentException("Key doesn't represent valid page.");
 			}
 
-			return modal ? this.navPage.PushAsync(page) : this.navPage.PushAsync(page, true);
+			await this.navPage.PushAsync(page, true);
+			if (onNavigated != null)
+			{
+				var modeledPage = page as IModeledPage<T>;
+				if (modeledPage != null)
+				{
+					onNavigated(modeledPage.ViewModel);
+				}
+			}
 		}
 	}
 }

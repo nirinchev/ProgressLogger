@@ -3,8 +3,10 @@ using DryIoc;
 using DryIoc.MefAttributedModel;
 using System.Collections.Generic;
 using System.Reflection;
+using ProgressLogger.Services;
+using ProgressLogger.Views;
 
-namespace ProgressLogger
+namespace ProgressLogger.Core
 {
 	public class App : Application
 	{

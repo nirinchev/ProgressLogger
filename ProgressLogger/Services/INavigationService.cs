@@ -1,12 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
+using System;
+using GalaSoft.MvvmLight;
 
-namespace ProgressLogger
+namespace ProgressLogger.Services
 {
 	public interface INavigationService
 	{
 		void Initialize(NavigationPage navPage);
 
-		Task NavigateTo(string key, bool modal);
+		Task NavigateTo<T>(Action<T> onNavigated = null) where T : ViewModelBase;
 	}
 }
