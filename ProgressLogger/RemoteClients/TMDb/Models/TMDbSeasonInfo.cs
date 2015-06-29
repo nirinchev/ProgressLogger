@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using AutoMapper;
 using ProgressLogger.Models;
+using System.Collections.Generic;
 
 namespace ProgressLogger.RemoteClients.TMDb.Models
 {
@@ -21,6 +22,9 @@ namespace ProgressLogger.RemoteClients.TMDb.Models
 
 		[JsonProperty("season_number")]
 		public int Number { get; set; }
+
+		[JsonProperty("episodes")]
+		public IEnumerable<TMDbEpisodeInfo> Episodes { get; set; }
 
 		[JsonIgnore]
 		public string PosterUrl { get; set; }

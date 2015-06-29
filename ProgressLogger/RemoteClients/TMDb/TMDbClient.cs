@@ -34,7 +34,7 @@ namespace ProgressLogger.RemoteClients.TMDb
 			var config = await configurationTcs.Task;
 			foreach (var info in response.Items)
 			{
-				config.ImagesConfiguration.UpdateUrls(info, 200, this.device.Display.Width);
+				config.ImagesConfiguration.UpdateUrls(info, 200, this.device.Display.Width, 200);
 			}
 
 			return response.Items.Select(Mapper.Map<SeriesInfo>);
@@ -45,8 +45,17 @@ namespace ProgressLogger.RemoteClients.TMDb
 			var endpoint = GetEndpoint($"tv/{id}");
 			var response = await HttpRequestHelper.Get<TMDbSeriesInfo>(endpoint);
 			var config = await configurationTcs.Task;
-			config.ImagesConfiguration.UpdateUrls(response, 200, this.device.Display.Width);
+			config.ImagesConfiguration.UpdateUrls(response, 200, this.device.Display.Width, 200);
 			return Mapper.Map<SeriesInfo>(response);
+		}
+
+		public async Task<SeasonInfo> LoadDetails(int id, int seasonNumber)
+		{
+			var endpoint = GetEndpoint($"tv/{id}/season/{seasonNumber}");
+			var response = await HttpRequestHelper.Get<TMDbSeasonInfo>(endpoint);
+			var config = await configurationTcs.Task;
+			config.ImagesConfiguration.UpdateUrls(response, 200, 200);
+			return Mapper.Map<SeasonInfo>(response);
 		}
 
 		private async Task Initialize()

@@ -49,6 +49,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\Models\TMDbSeasonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\WatchStatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToStarConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EpisodeInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\SeasonInfoExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\Models\TMDbEpisodeInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DictionaryExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\SeriesToProgressConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />

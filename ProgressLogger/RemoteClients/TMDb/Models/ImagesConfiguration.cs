@@ -8,11 +8,7 @@ namespace ProgressLogger.RemoteClients.TMDb.Models
 {
 	public class ImagesConfiguration
 	{
-		private IEnumerable<string> posterSizes;
-		private Tuple<int, string>[] posterSizeInfos;
-
-		private IEnumerable<string> backdropSizes;
-		private Tuple<int, string>[] backdropSizeInfos;
+		private IDictionary<ImageType, Tuple<int, string>[]> sizes = new Dictionary<ImageType, Tuple<int, string>[]>();
 
 		[JsonProperty("secure_base_url")]
 		public string BaseUrl { get; set; }
@@ -22,14 +18,11 @@ namespace ProgressLogger.RemoteClients.TMDb.Models
 		{
 			get
 			{
-				return this.posterSizes;
+				return this.GetSizes(ImageType.Poster);
 			}
 			set
 			{
-				this.posterSizes = value;
-				this.posterSizeInfos = this.posterSizes.Select(GetSizeInfo)
-												 .OrderBy(s => s.Item1)
-												 .ToArray();
+				this.SetSizes(ImageType.Poster, value);
 			}
 		}
 
@@ -38,41 +31,70 @@ namespace ProgressLogger.RemoteClients.TMDb.Models
 		{
 			get
 			{
-				return this.backdropSizes;
+				return this.GetSizes(ImageType.Backdrop);
 			}
 			set
 			{
-				this.backdropSizes = value;
-				this.backdropSizeInfos = this.backdropSizes.Select(GetSizeInfo)
-					.OrderBy(s => s.Item1)
-					.ToArray();
+				this.SetSizes(ImageType.Backdrop, value);
 			}
 		}
 
-		public string GetPosterUrl(string relative, int minWidth)
+		[JsonProperty("still_sizes")]
+		public IEnumerable<string> StillSizes
 		{
-			var size = this.posterSizeInfos.First(s => s.Item1 >= minWidth).Item2;
-			return $"{BaseUrl}{size}{relative}";
+			get
+			{
+				return this.GetSizes(ImageType.Still);
+			}
+			set
+			{
+				this.SetSizes(ImageType.Still, value);
+			}
 		}
 
-		public string GetBackdropUrl(string relative, int minWidth)
+		public string GetUrl(string relative, ImageType type, int minWidth)
 		{
-			var size = this.backdropSizeInfos.First(s => s.Item1 >= minWidth).Item2;
-			return $"{BaseUrl}{size}{relative}";
+			var size = this.sizes.GetValueOrDefault(type)?.FirstOrDefault(s => s.Item1 >= minWidth)?.Item2;
+			return size == null ? null : $"{BaseUrl}{size}{relative}";
 		}
 
-		public void UpdateUrls(TMDbSeriesInfo info, int posterWidth, int backdropWidth)
+		public void UpdateUrls(TMDbSeriesInfo info, int posterWidth, int backdropWidth, int stillWidth)
 		{
-			info.PosterUrl = this.GetPosterUrl(info.PosterPath, posterWidth);
-			info.BackdropUrl = this.GetBackdropUrl(info.BackdropPath, backdropWidth);
+			info.PosterUrl = this.GetUrl(info.PosterPath, ImageType.Poster, posterWidth);
+			info.BackdropUrl = this.GetUrl(info.BackdropPath, ImageType.Backdrop, backdropWidth);
 
 			if (info.SeasonInfoes != null)
 			{
 				foreach (var seasonInfo in info.SeasonInfoes)
 				{
-					seasonInfo.PosterUrl = this.GetPosterUrl(seasonInfo.PosterPath, posterWidth);
+					this.UpdateUrls(seasonInfo, posterWidth, stillWidth);
 				}
 			}
+		}
+
+		public void UpdateUrls(TMDbSeasonInfo info, int posterWidth, int stillWidth)
+		{
+			info.PosterUrl = this.GetUrl(info.PosterPath, ImageType.Poster, posterWidth);
+
+			if (info.Episodes != null)
+			{
+				foreach (var ep in info.Episodes)
+				{
+					ep.StillUrl = this.GetUrl(ep.StillPath, ImageType.Still, stillWidth);
+				}
+			}
+		}
+
+		private IEnumerable<string> GetSizes(ImageType type)
+		{
+			return this.sizes.GetValueOrDefault(type)?.Select(t => t.Item2) ?? Enumerable.Empty<string>();
+		}
+
+		private void SetSizes(ImageType type, IEnumerable<string> values)
+		{
+			this.sizes[type] = values.Select(GetSizeInfo)
+									 .OrderBy(s => s.Item1)
+									 .ToArray();
 		}
 
 		private static Tuple<int, string> GetSizeInfo(string info)
@@ -84,5 +106,12 @@ namespace ProgressLogger.RemoteClients.TMDb.Models
 
 			return Tuple.Create(int.Parse(info.TrimStart('w')), info);
 		}
+	}
+
+	public enum ImageType
+	{
+		Poster,
+		Backdrop,
+		Still
 	}
 }

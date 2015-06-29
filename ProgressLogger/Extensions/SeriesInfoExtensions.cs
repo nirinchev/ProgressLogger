@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Linq;
 
 namespace ProgressLogger.Models
 {
@@ -12,7 +13,9 @@ namespace ProgressLogger.Models
 
 		public static bool IsComplete(this SeriesInfo info)
 		{
-			return !string.IsNullOrEmpty(info.Genres);
+			return !string.IsNullOrEmpty(info.Genres) &&
+				   info.SeasonInfoes != null &&
+				   info.SeasonInfoes.All(SeasonInfoExtensions.IsComplete);
 		}
 	}
 }

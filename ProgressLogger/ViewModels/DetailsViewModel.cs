@@ -61,7 +61,8 @@ namespace ProgressLogger.ViewModels
 		private async Task Reload()
 		{
 			var details = await this.client.LoadDetails(this.Info.Id);
-			Mapper.Map(details, this.info);
+			Mapper.Map(details, this.Info);
+
 			this.RaisePropertyChanged(nameof(Info));
 		}
 
