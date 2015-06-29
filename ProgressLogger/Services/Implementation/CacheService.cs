@@ -17,9 +17,9 @@ namespace ProgressLogger.Services.Implementation
 			BlobCache.ApplicationName = "ProgressLogger";
 		}
 
-		public async Task AddOrUpdate<T> (string key, T item, double expirationHours)
+		public async Task AddOrUpdate<T> (string key, T item, DateTimeOffset? expiration)
 		{
-			await BlobCache.LocalMachine.InsertObject (key, item, DateTimeOffset.UtcNow.AddHours (expirationHours));
+			await BlobCache.LocalMachine.InsertObject (key, item, expiration);
 		}
 
 		public async Task<T> GetValueOrDefault<T> (string key, T defaultValue)

@@ -2,19 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProgressLogger
+namespace ProgressLogger.Helpers
 {
 	public class Grouping<K, T> : ObservableCollection<T>
 	{
-		private readonly K key;
-
-		public K Key
-		{ 
-			get
-			{
-				return this.Items.Any() ? this.key : default(K);
-			}
-		}
+		public K Key { get; }
 
 		public Grouping(K key) : this(key, Enumerable.Empty<T>())
 		{
@@ -22,7 +14,7 @@ namespace ProgressLogger
 
 		public Grouping(K key, IEnumerable<T> items) 
 		{ 
-			this.key = key; 
+			this.Key = key; 
 
 			foreach (var item in items)
 			{

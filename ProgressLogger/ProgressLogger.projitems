@@ -48,6 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\SeasonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RemoteClients\TMDb\Models\TMDbSeasonInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\WatchStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToStarConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
@@ -62,6 +63,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Core\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\BaseClasses\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml">

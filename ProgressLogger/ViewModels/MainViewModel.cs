@@ -97,7 +97,7 @@ namespace ProgressLogger.ViewModels
 		private void SearchLocal()
 		{
 			var local = this.Series[0];
-			var toRemove = local.Where(i => !i.Filter(this.SearchQuery));
+			var toRemove = local.Where(i => !i.Filter(this.SearchQuery) || !this.seriesService.CurrentSeries.Contains(i));
 			local.RemoveRange(toRemove);
 
 			var toAdd = this.seriesService.CurrentSeries.Where(i => !local.Contains(i) && i.Filter(this.SearchQuery));
@@ -109,7 +109,7 @@ namespace ProgressLogger.ViewModels
 		private async Task SearchRemote()
 		{
 			var items = await this.seriesService.Find(this.SearchQuery);
-			this.AddRemoteGroup(items);
+			this.AddRemoteGroup(items.Where(i => this.seriesService.CurrentSeries.All(c => c.Id != i.Id)));
 		}
 
 		private void RemoveRemoteGroup()

@@ -23,11 +23,14 @@ namespace ProgressLogger.Services.Implementation
 		{
 			this.client = client;
 			this.cacheService = cacheService;
+			this.CurrentSeries.CollectionChanged += (sender, e) => this.cacheService.AddOrUpdate(CachedSeriesKey, this.CurrentSeries.ToArray());
+
+			this.Initialize().Forget();
 		}
 
 		private async Task Initialize()
 		{
-			var cachedInfoes = await this.cacheService.GetValueOrDefault<IEnumerable<SeriesInfo>>(CachedSeriesKey);
+			var cachedInfoes = await this.cacheService.GetValueOrDefault<SeriesInfo[]>(CachedSeriesKey);
 			this.CurrentSeries.AddRange(cachedInfoes);
 		}
 
